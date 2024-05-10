@@ -87,7 +87,7 @@
 					"response": []
 				},
 				{
-					"name": "Contextinfo",
+					"name": "DigestForPost",
 					"event": [
 						{
 							"listen": "test",
