@@ -26,3 +26,4 @@ $fileLength
 ![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/d957bbdb-2911-49d4-930d-da34babb09fb)
 ![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/132343d1-9115-46be-87a3-2f7ce48727e3)
 
+Batch upload request [README](batchupload.md) demo. 
