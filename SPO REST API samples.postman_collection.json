@@ -1,0 +1,949 @@
+{
+	"info": {
+		"_postman_id": "efe3a02f-2131-4db1-b449-2f02dcb3b6cc",
+		"name": "SPO REST API samples",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Tests\" tab**\n\nTests help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/b5f280a7-4b09-48ec-857f-0a7ed99d7ef8/U2NyZWVuc2hvdCAyMDIzLTAzLTI3IGF0IDkuNDcuMjggUE0ucG5n\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) in \"Tests\" to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9301583"
+	},
+	"item": [
+		{
+			"name": "Init",
+			"item": [
+				{
+					"name": "Get web for test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{SiteURL}}_api/web",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"web"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "metadata",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "{{jsonType}}"
+							},
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}"
+							}
+						],
+						"url": {
+							"raw": "{{SiteURL}}_api/$metadata",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"$metadata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contextinfo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"try {",
+									"    var json = JSON.parse(responseBody);",
+									"    console.log(json.d.GetContextWebInformation.FormDigestValue);",
+									"    postman.setEnvironmentVariable(\"RequestDigest\", json.d.GetContextWebInformation.FormDigestValue);",
+									"}",
+									"catch (e) {",
+									"    console.log(e);",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose"
+							},
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}"
+							}
+						],
+						"url": {
+							"raw": "{{SiteURL}}_api/contextinfo",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"contextinfo"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get",
+			"item": []
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Search",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}"
+							},
+							{
+								"key": "X-RequestDigest",
+								"value": "{{RequestDigest}}"
+							},
+							{
+								"key": "Accept",
+								"value": "{{jsonType}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "{{jsonType}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"request\": {\r\n        \"Querytext\": \"*\",\r\n        \"StartRow\": 10,\r\n        \"RowLimit\": 100\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SiteURL}}_api/search/postquery",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"search",
+								"postquery"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FileUpload&Metadata",
+			"item": [
+				{
+					"name": "UploadFile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}"
+							},
+							{
+								"key": "X-RequestDigest",
+								"value": "{{RequestDigest}}"
+							},
+							{
+								"key": "If-Match",
+								"value": "*"
+							},
+							{
+								"key": "Content-Length",
+								"value": "8849"
+							},
+							{
+								"key": "Accept",
+								"value": "{{jsonType}}"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": "/C:/Temp/test0503.xlsx"
+							}
+						},
+						"url": {
+							"raw": "{{SiteURL}}_api/web/GetFolderByServerRelativeUrl('TestRest/')/Files/AddUsingPath(decodedurl='test05071.xlsx',overwrite=false)?$expand=ListItemAllFields",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"web",
+								"GetFolderByServerRelativeUrl('TestRest",
+								"')",
+								"Files",
+								"AddUsingPath(decodedurl='test05071.xlsx',overwrite=false)"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "ListItemAllFields"
+								}
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Update metadata",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}",
+								"type": "text"
+							},
+							{
+								"key": "X-RequestDigest",
+								"value": "0xD030A23F868A39BAA03ECE393685E6F37768C940376CF851E8949849C6EAA3E5BD9A757374D2F7950FA64F42EE0A908BC9EA050EB2E146560481F0E804DE22D0,03 May 2024 09:52:57 -0000",
+								"type": "text"
+							},
+							{
+								"key": "If-Match",
+								"value": "*",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"__metadata\": {\n      \"type\": \"SP.Data.TestRestItem\"\n    },\n    \"Title\":\"NewTitle\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SiteURL}}_api/Web/GetFileByServerRelativePath(decodedurl='/sites/dev/TestRest/test0503.xlsx')/ListItemAllFields",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"Web",
+								"GetFileByServerRelativePath(decodedurl='",
+								"sites",
+								"dev",
+								"TestRest",
+								"test0503.xlsx')",
+								"ListItemAllFields"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Metadata",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose"
+							},
+							{
+								"key": "metadatafortracking",
+								"value": "SP.Data.TestRestItem",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": "/C:/Temp/test0503.xlsx"
+							}
+						},
+						"url": {
+							"raw": "{{SiteURL}}_api/Web/GetFileByServerRelativePath(decodedurl='/sites/dev/TestRest/test0503.xlsx')/ListItemAllFields",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"Web",
+								"GetFileByServerRelativePath(decodedurl='",
+								"sites",
+								"dev",
+								"TestRest",
+								"test0503.xlsx')",
+								"ListItemAllFields"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "V2",
+			"item": [
+				{
+					"name": "BatchUploadFile",
+					"item": [
+						{
+							"name": "CreateUploadSession",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AuthCookie}}"
+									},
+									{
+										"key": "User-Agent",
+										"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+									},
+									{
+										"key": "Accept",
+										"value": "{{jsonType}}"
+									},
+									{
+										"key": "comment",
+										"value": "TestRest is a document library",
+										"disabled": true
+									},
+									{
+										"key": "X-RequestDigest",
+										"value": "{{RequestDigest}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{SiteURL}}_api/v2.1/sites/a615d670-5001-4280-b60c-fb7d2c7eaf94/drives/b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK/root:/testfolder/test2.docx:/createUploadSession",
+									"host": [
+										"{{SiteURL}}_api"
+									],
+									"path": [
+										"v2.1",
+										"sites",
+										"a615d670-5001-4280-b60c-fb7d2c7eaf94",
+										"drives",
+										"b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK",
+										"root:",
+										"testfolder",
+										"test2.docx:",
+										"createUploadSession"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						},
+						{
+							"name": "UploadBatch1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AuthCookie}}"
+									},
+									{
+										"key": "User-Agent",
+										"value": "{{userAgent}}"
+									},
+									{
+										"key": "Accept",
+										"value": "{{jsonType}}"
+									},
+									{
+										"key": "Content-Length",
+										"value": "1310720",
+										"type": "text"
+									},
+									{
+										"key": "Content-Range",
+										"value": "bytes 0-1310719/2378157",
+										"type": "text"
+									},
+									{
+										"key": "comment",
+										"value": "use URL from createUploadSession directly",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {
+										"src": "/C:/Temp/Chunk0.bin"
+									}
+								},
+								"url": {
+									"raw": "https://m365x17384749.sharepoint.com/sites/dev/_api/v2.1/drives/b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK/items/01KKKUWEZTCKKAXRYTXNELLWFYHIRR7DSB/uploadSession?guid=9c926b34-adea-4602-858f-c3d2ba4c99be&name='test2.docx'&nameConflictBehavior=Replace&dc=False&tempauth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvbTM2NXgxNzM4NDc0OS5zaGFyZXBvaW50LmNvbUBiMmFkY2FmMS03NjEwLTQ1YzgtOGIxOS1kODBhOGU1Y2NiMWQiLCJjYWNoZWtleSI6IjBoLmZ8bWVtYmVyc2hpcHwxMDAzMjAwMmM5Y2YwMTMzQGxpdmUuY29tIiwiY2lkIjoib1NjdmZ5NndBRkNFTGF4WUROcG5Pdz09IiwiZW5kcG9pbnR1cmwiOiJTSXFIdWdXKzMwWGc0NGY3QTc0aFdwOXB4dGE3dGROdXpKTnpUalU2RFN3PSIsImVuZHBvaW50dXJsTGVuZ3RoIjoiMjgzIiwiZXhwIjoiMTcxNTQwMjI3NCIsImlwYWRkciI6IjE2Ny4yMjAuMjU1Ljg0IiwiaXNsb29wYmFjayI6IlRydWUiLCJpc3MiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAiLCJpc3VzZXIiOiJ0cnVlIiwibmFtZWlkIjoiMCMuZnxtZW1iZXJzaGlwfG1lZ2FuYkBtMzY1eDE3Mzg0NzQ5Lm9ubWljcm9zb2Z0LmNvbSIsIm5iZiI6IjE3MTUzMTU4NzQiLCJuaWkiOiJtaWNyb3NvZnQuc2hhcmVwb2ludCIsInNpZCI6ImE3YWFiNjdhLTY5NTctNGVhYi1hMmM0LWJkOGRiOTZhZmNjYyIsInNpZ25pbl9zdGF0ZSI6IltcImttc2lcIl0iLCJzaXRlaWQiOiJZVFl4TldRMk56QXROVEF3TVMwME1qZ3dMV0kyTUdNdFptSTNaREpqTjJWaFpqazAiLCJ0dCI6IjAiLCJ2ZXIiOiJoYXNoZWRwcm9vZnRva2VuIn0.PkvMy0o9y5bRP1kDSPFk0iweJbZzvpSlV2z_nCZ58MM",
+									"protocol": "https",
+									"host": [
+										"m365x17384749",
+										"sharepoint",
+										"com"
+									],
+									"path": [
+										"sites",
+										"dev",
+										"_api",
+										"v2.1",
+										"drives",
+										"b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK",
+										"items",
+										"01KKKUWEZTCKKAXRYTXNELLWFYHIRR7DSB",
+										"uploadSession"
+									],
+									"query": [
+										{
+											"key": "guid",
+											"value": "9c926b34-adea-4602-858f-c3d2ba4c99be"
+										},
+										{
+											"key": "name",
+											"value": "'test2.docx'"
+										},
+										{
+											"key": "nameConflictBehavior",
+											"value": "Replace"
+										},
+										{
+											"key": "dc",
+											"value": "False"
+										},
+										{
+											"key": "tempauth",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvbTM2NXgxNzM4NDc0OS5zaGFyZXBvaW50LmNvbUBiMmFkY2FmMS03NjEwLTQ1YzgtOGIxOS1kODBhOGU1Y2NiMWQiLCJjYWNoZWtleSI6IjBoLmZ8bWVtYmVyc2hpcHwxMDAzMjAwMmM5Y2YwMTMzQGxpdmUuY29tIiwiY2lkIjoib1NjdmZ5NndBRkNFTGF4WUROcG5Pdz09IiwiZW5kcG9pbnR1cmwiOiJTSXFIdWdXKzMwWGc0NGY3QTc0aFdwOXB4dGE3dGROdXpKTnpUalU2RFN3PSIsImVuZHBvaW50dXJsTGVuZ3RoIjoiMjgzIiwiZXhwIjoiMTcxNTQwMjI3NCIsImlwYWRkciI6IjE2Ny4yMjAuMjU1Ljg0IiwiaXNsb29wYmFjayI6IlRydWUiLCJpc3MiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAiLCJpc3VzZXIiOiJ0cnVlIiwibmFtZWlkIjoiMCMuZnxtZW1iZXJzaGlwfG1lZ2FuYkBtMzY1eDE3Mzg0NzQ5Lm9ubWljcm9zb2Z0LmNvbSIsIm5iZiI6IjE3MTUzMTU4NzQiLCJuaWkiOiJtaWNyb3NvZnQuc2hhcmVwb2ludCIsInNpZCI6ImE3YWFiNjdhLTY5NTctNGVhYi1hMmM0LWJkOGRiOTZhZmNjYyIsInNpZ25pbl9zdGF0ZSI6IltcImttc2lcIl0iLCJzaXRlaWQiOiJZVFl4TldRMk56QXROVEF3TVMwME1qZ3dMV0kyTUdNdFptSTNaREpqTjJWaFpqazAiLCJ0dCI6IjAiLCJ2ZXIiOiJoYXNoZWRwcm9vZnRva2VuIn0.PkvMy0o9y5bRP1kDSPFk0iweJbZzvpSlV2z_nCZ58MM"
+										}
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						},
+						{
+							"name": "UploadBatch2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AuthCookie}}"
+									},
+									{
+										"key": "User-Agent",
+										"value": "{{userAgent}}"
+									},
+									{
+										"key": "Accept",
+										"value": "{{jsonType}}"
+									},
+									{
+										"key": "Content-Length",
+										"value": "1067437"
+									},
+									{
+										"key": "Content-Range",
+										"value": "bytes 1310720-2378156/2378157"
+									},
+									{
+										"key": "comment",
+										"value": "use URL from createUploadSession directly",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {
+										"src": "/C:/Temp/Chunk1.bin"
+									}
+								},
+								"url": {
+									"raw": "https://m365x17384749.sharepoint.com/sites/dev/_api/v2.1/drives/b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK/items/01KKKUWEZTCKKAXRYTXNELLWFYHIRR7DSB/uploadSession?guid=9c926b34-adea-4602-858f-c3d2ba4c99be&name='test2.docx'&nameConflictBehavior=Replace&dc=False&tempauth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvbTM2NXgxNzM4NDc0OS5zaGFyZXBvaW50LmNvbUBiMmFkY2FmMS03NjEwLTQ1YzgtOGIxOS1kODBhOGU1Y2NiMWQiLCJjYWNoZWtleSI6IjBoLmZ8bWVtYmVyc2hpcHwxMDAzMjAwMmM5Y2YwMTMzQGxpdmUuY29tIiwiY2lkIjoib1NjdmZ5NndBRkNFTGF4WUROcG5Pdz09IiwiZW5kcG9pbnR1cmwiOiJTSXFIdWdXKzMwWGc0NGY3QTc0aFdwOXB4dGE3dGROdXpKTnpUalU2RFN3PSIsImVuZHBvaW50dXJsTGVuZ3RoIjoiMjgzIiwiZXhwIjoiMTcxNTQwMjI3NCIsImlwYWRkciI6IjE2Ny4yMjAuMjU1Ljg0IiwiaXNsb29wYmFjayI6IlRydWUiLCJpc3MiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAiLCJpc3VzZXIiOiJ0cnVlIiwibmFtZWlkIjoiMCMuZnxtZW1iZXJzaGlwfG1lZ2FuYkBtMzY1eDE3Mzg0NzQ5Lm9ubWljcm9zb2Z0LmNvbSIsIm5iZiI6IjE3MTUzMTU4NzQiLCJuaWkiOiJtaWNyb3NvZnQuc2hhcmVwb2ludCIsInNpZCI6ImE3YWFiNjdhLTY5NTctNGVhYi1hMmM0LWJkOGRiOTZhZmNjYyIsInNpZ25pbl9zdGF0ZSI6IltcImttc2lcIl0iLCJzaXRlaWQiOiJZVFl4TldRMk56QXROVEF3TVMwME1qZ3dMV0kyTUdNdFptSTNaREpqTjJWaFpqazAiLCJ0dCI6IjAiLCJ2ZXIiOiJoYXNoZWRwcm9vZnRva2VuIn0.PkvMy0o9y5bRP1kDSPFk0iweJbZzvpSlV2z_nCZ58MM",
+									"protocol": "https",
+									"host": [
+										"m365x17384749",
+										"sharepoint",
+										"com"
+									],
+									"path": [
+										"sites",
+										"dev",
+										"_api",
+										"v2.1",
+										"drives",
+										"b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK",
+										"items",
+										"01KKKUWEZTCKKAXRYTXNELLWFYHIRR7DSB",
+										"uploadSession"
+									],
+									"query": [
+										{
+											"key": "guid",
+											"value": "9c926b34-adea-4602-858f-c3d2ba4c99be"
+										},
+										{
+											"key": "name",
+											"value": "'test2.docx'"
+										},
+										{
+											"key": "nameConflictBehavior",
+											"value": "Replace"
+										},
+										{
+											"key": "dc",
+											"value": "False"
+										},
+										{
+											"key": "tempauth",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvbTM2NXgxNzM4NDc0OS5zaGFyZXBvaW50LmNvbUBiMmFkY2FmMS03NjEwLTQ1YzgtOGIxOS1kODBhOGU1Y2NiMWQiLCJjYWNoZWtleSI6IjBoLmZ8bWVtYmVyc2hpcHwxMDAzMjAwMmM5Y2YwMTMzQGxpdmUuY29tIiwiY2lkIjoib1NjdmZ5NndBRkNFTGF4WUROcG5Pdz09IiwiZW5kcG9pbnR1cmwiOiJTSXFIdWdXKzMwWGc0NGY3QTc0aFdwOXB4dGE3dGROdXpKTnpUalU2RFN3PSIsImVuZHBvaW50dXJsTGVuZ3RoIjoiMjgzIiwiZXhwIjoiMTcxNTQwMjI3NCIsImlwYWRkciI6IjE2Ny4yMjAuMjU1Ljg0IiwiaXNsb29wYmFjayI6IlRydWUiLCJpc3MiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAiLCJpc3VzZXIiOiJ0cnVlIiwibmFtZWlkIjoiMCMuZnxtZW1iZXJzaGlwfG1lZ2FuYkBtMzY1eDE3Mzg0NzQ5Lm9ubWljcm9zb2Z0LmNvbSIsIm5iZiI6IjE3MTUzMTU4NzQiLCJuaWkiOiJtaWNyb3NvZnQuc2hhcmVwb2ludCIsInNpZCI6ImE3YWFiNjdhLTY5NTctNGVhYi1hMmM0LWJkOGRiOTZhZmNjYyIsInNpZ25pbl9zdGF0ZSI6IltcImttc2lcIl0iLCJzaXRlaWQiOiJZVFl4TldRMk56QXROVEF3TVMwME1qZ3dMV0kyTUdNdFptSTNaREpqTjJWaFpqazAiLCJ0dCI6IjAiLCJ2ZXIiOiJoYXNoZWRwcm9vZnRva2VuIn0.PkvMy0o9y5bRP1kDSPFk0iweJbZzvpSlV2z_nCZ58MM"
+										}
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetSiteID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}"
+							},
+							{
+								"key": "User-Agent",
+								"value": "{{userAgent}}"
+							},
+							{
+								"key": "comment",
+								"value": "current test site: sites/dev",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{SiteURL}}_api/v2.1/sites:/sites/contosoteam",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"v2.1",
+								"sites:",
+								"sites",
+								"contosoteam"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "GetRootDrive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}"
+							},
+							{
+								"key": "User-Agent",
+								"value": "{{userAgent}}"
+							},
+							{
+								"key": "Accept",
+								"value": "{{jsonType}}"
+							},
+							{
+								"key": "comment",
+								"value": "replace site id",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{SiteURL}}_api/v2.1/sites/a615d670-5001-4280-b60c-fb7d2c7eaf94/drive/root:/",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"v2.1",
+								"sites",
+								"a615d670-5001-4280-b60c-fb7d2c7eaf94",
+								"drive",
+								"root:",
+								""
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "GetSpecifcDrive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}"
+							},
+							{
+								"key": "User-Agent",
+								"value": "{{userAgent}}"
+							},
+							{
+								"key": "Accept",
+								"value": "{{jsonType}}"
+							},
+							{
+								"key": "comment",
+								"value": "update siteid, TestRest is a document library",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{SiteURL}}_api/v2.1/sites/a615d670-5001-4280-b60c-fb7d2c7eaf94/lists/TestRest/drive",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"v2.1",
+								"sites",
+								"a615d670-5001-4280-b60c-fb7d2c7eaf94",
+								"lists",
+								"TestRest",
+								"drive"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "GetSpecifcFileBasedonParent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}"
+							},
+							{
+								"key": "User-Agent",
+								"value": "{{userAgent}}"
+							},
+							{
+								"key": "Accept",
+								"value": "{{jsonType}}"
+							},
+							{
+								"key": "comment",
+								"value": "update site id and drive id; TestRest is a document library",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{SiteURL}}_api/v2.1/sites/a615d670-5001-4280-b60c-fb7d2c7eaf94/drives/b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK/root:/testfolder/testrest.xlsx",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"v2.1",
+								"sites",
+								"a615d670-5001-4280-b60c-fb7d2c7eaf94",
+								"drives",
+								"b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK",
+								"root:",
+								"testfolder",
+								"testrest.xlsx"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}
