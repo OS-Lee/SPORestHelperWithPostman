@@ -140,7 +140,57 @@
 		},
 		{
 			"name": "Get",
-			"item": []
+			"item": [
+				{
+					"name": "UserUPA",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{AuthCookie}}"
+							},
+							{
+								"key": "Accept",
+								"value": "{{jsonType}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{SiteURL}}_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)?@v='i:0%23.f|membership|kevin@M365x17384749.onmicrosoft.com'",
+							"host": [
+								"{{SiteURL}}_api"
+							],
+							"path": [
+								"SP.UserProfiles.PeopleManager",
+								"GetPropertiesFor(accountName=@v)"
+							],
+							"query": [
+								{
+									"key": "@v",
+									"value": "'i:0%23.f|membership|kevin@M365x17384749.onmicrosoft.com'"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Search",
@@ -316,7 +366,7 @@
 							},
 							{
 								"key": "X-RequestDigest",
-								"value": "0xD030A23F868A39BAA03ECE393685E6F37768C940376CF851E8949849C6EAA3E5BD9A757374D2F7950FA64F42EE0A908BC9EA050EB2E146560481F0E804DE22D0,03 May 2024 09:52:57 -0000",
+								"value": "{{RequestDigest}}",
 								"type": "text"
 							},
 							{
@@ -458,7 +508,7 @@
 									},
 									{
 										"key": "User-Agent",
-										"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+										"value": "{{userAgent}}"
 									},
 									{
 										"key": "Accept",
