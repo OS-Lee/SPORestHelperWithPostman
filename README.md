@@ -16,3 +16,13 @@ Replace the variables as your own:
 Get web for test to test if the cookie works. DigestForPost for post request test.
 ![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/456689c2-c17f-44be-959b-921457b690a2)
 
+Test a file upload(post) request:
+```
+$file = 'C:\Temp\test0510.xlsx'  
+$fileInBytes = [System.IO.File]::ReadAllBytes($file)
+$fileLength = $fileInBytes.Length
+$fileLength 
+```
+![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/d957bbdb-2911-49d4-930d-da34babb09fb)
+![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/132343d1-9115-46be-87a3-2f7ce48727e3)
+
