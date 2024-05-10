@@ -1,7 +1,7 @@
 # SPORestHelperWithPostman
-provide sample rest api calls for easy testing
+Provide sample rest api calls for easy testing
 
-Import the workspace collection files into postman.
+Import the workspace files into postman.
 ![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/cbdee67e-d98b-48a7-99bf-40219e386fc1)
 ![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/e059205c-ad64-4b3a-9834-b63200ebabb8)
 
