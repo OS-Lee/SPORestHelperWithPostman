@@ -1,6 +1,6 @@
 SharePoint large file upload batch request test with help of api V2:
 
-Check [a relative link](README.md) about how to configure the postman. 
+Check [README](README.md) about how to configure the postman. 
 
 Script used to generate file chunks for batch upload.
 ```
