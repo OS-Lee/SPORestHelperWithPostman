@@ -40,5 +40,14 @@ Create upload session:
 ```
 {{SiteURL}}_api/v2.1/sites/<siteid>/drives/<driveid>/root:/testfolder/test2.docx:/createUploadSession
 ```
+![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/b09b4883-1b2b-4a76-b807-0210385e3b14)
 
 Upload the first chunk:
+Use the upload session returned above:
+![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/695bd401-404f-458c-bc0c-a1c1f4b97586)
+![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/1982b4ec-484b-4e62-9e6c-ec9b84126736)
+
+Only two chunks for the testing file, upload the second one:
+![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/7c765efb-e462-4dba-8579-97aade1dbc3f)
+
+
