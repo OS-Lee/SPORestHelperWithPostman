@@ -2,7 +2,7 @@ SharePoint large file upload batch request test with help of api V2:
 
 Check [README](README.md) about how to configure the postman. 
 
-Script used to generate file chunks for batch upload.
+Script used to generate file chunks for batch upload. reference:https://pnp.github.io/script-samples/graph-upload-file-to-sharepoint/README.html?tabs=azure-cli
 ```
 $file = 'C:\Temp\Testfile.docx'  
 $fileInBytes = [System.IO.File]::ReadAllBytes($file)
