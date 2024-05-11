@@ -166,8 +166,7 @@
 							},
 							{
 								"key": "Accept",
-								"value": "{{jsonType}}",
-								"type": "text"
+								"value": "{{jsonType}}"
 							}
 						],
 						"url": {
@@ -453,7 +452,7 @@
 						"body": {
 							"mode": "file",
 							"file": {
-								"src": "/C:/Temp/test0503.xlsx"
+								"src": ""
 							}
 						},
 						"url": {
@@ -480,6 +479,227 @@
 		{
 			"name": "V2",
 			"item": [
+				{
+					"name": "Drive(File)",
+					"item": [
+						{
+							"name": "GetSiteID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AuthCookie}}"
+									},
+									{
+										"key": "User-Agent",
+										"value": "{{userAgent}}"
+									},
+									{
+										"key": "comment",
+										"value": "current test site: sites/dev",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{SiteURL}}_api/v2.1/sites:/sites/contosoteam",
+									"host": [
+										"{{SiteURL}}_api"
+									],
+									"path": [
+										"v2.1",
+										"sites:",
+										"sites",
+										"contosoteam"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						},
+						{
+							"name": "GetRootDrive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AuthCookie}}"
+									},
+									{
+										"key": "User-Agent",
+										"value": "{{userAgent}}"
+									},
+									{
+										"key": "Accept",
+										"value": "{{jsonType}}"
+									},
+									{
+										"key": "comment",
+										"value": "replace site id",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{SiteURL}}_api/v2.1/sites/a615d670-5001-4280-b60c-fb7d2c7eaf94/drive/root:/",
+									"host": [
+										"{{SiteURL}}_api"
+									],
+									"path": [
+										"v2.1",
+										"sites",
+										"a615d670-5001-4280-b60c-fb7d2c7eaf94",
+										"drive",
+										"root:",
+										""
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						},
+						{
+							"name": "GetSpecifcDrive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AuthCookie}}"
+									},
+									{
+										"key": "User-Agent",
+										"value": "{{userAgent}}"
+									},
+									{
+										"key": "Accept",
+										"value": "{{jsonType}}"
+									},
+									{
+										"key": "comment",
+										"value": "update siteid, TestRest is a document library",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{SiteURL}}_api/v2.1/sites/a615d670-5001-4280-b60c-fb7d2c7eaf94/lists/TestRest/drive",
+									"host": [
+										"{{SiteURL}}_api"
+									],
+									"path": [
+										"v2.1",
+										"sites",
+										"a615d670-5001-4280-b60c-fb7d2c7eaf94",
+										"lists",
+										"TestRest",
+										"drive"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						},
+						{
+							"name": "GetSpecifcFileBasedonParent",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "{{AuthCookie}}"
+									},
+									{
+										"key": "User-Agent",
+										"value": "{{userAgent}}"
+									},
+									{
+										"key": "Accept",
+										"value": "{{jsonType}}"
+									},
+									{
+										"key": "comment",
+										"value": "update site id and drive id; TestRest is a document library",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{SiteURL}}_api/v2.1/sites/a615d670-5001-4280-b60c-fb7d2c7eaf94/drives/b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK/root:/testfolder/testrest.xlsx",
+									"host": [
+										"{{SiteURL}}_api"
+									],
+									"path": [
+										"v2.1",
+										"sites",
+										"a615d670-5001-4280-b60c-fb7d2c7eaf94",
+										"drives",
+										"b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK",
+										"root:",
+										"testfolder",
+										"testrest.xlsx"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						}
+					]
+				},
 				{
 					"name": "BatchUploadFile",
 					"item": [
@@ -516,7 +736,7 @@
 									},
 									{
 										"key": "comment",
-										"value": "TestRest is a document library",
+										"value": "TestRest is a document library; get site & drive infor first",
 										"disabled": true
 									},
 									{
@@ -744,224 +964,6 @@
 							"response": []
 						}
 					]
-				},
-				{
-					"name": "GetSiteID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Cookie",
-								"value": "{{AuthCookie}}"
-							},
-							{
-								"key": "User-Agent",
-								"value": "{{userAgent}}"
-							},
-							{
-								"key": "comment",
-								"value": "current test site: sites/dev",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "{{SiteURL}}_api/v2.1/sites:/sites/contosoteam",
-							"host": [
-								"{{SiteURL}}_api"
-							],
-							"path": [
-								"v2.1",
-								"sites:",
-								"sites",
-								"contosoteam"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "GetRootDrive",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Cookie",
-								"value": "{{AuthCookie}}"
-							},
-							{
-								"key": "User-Agent",
-								"value": "{{userAgent}}"
-							},
-							{
-								"key": "Accept",
-								"value": "{{jsonType}}"
-							},
-							{
-								"key": "comment",
-								"value": "replace site id",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "{{SiteURL}}_api/v2.1/sites/a615d670-5001-4280-b60c-fb7d2c7eaf94/drive/root:/",
-							"host": [
-								"{{SiteURL}}_api"
-							],
-							"path": [
-								"v2.1",
-								"sites",
-								"a615d670-5001-4280-b60c-fb7d2c7eaf94",
-								"drive",
-								"root:",
-								""
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "GetSpecifcDrive",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Cookie",
-								"value": "{{AuthCookie}}"
-							},
-							{
-								"key": "User-Agent",
-								"value": "{{userAgent}}"
-							},
-							{
-								"key": "Accept",
-								"value": "{{jsonType}}"
-							},
-							{
-								"key": "comment",
-								"value": "update siteid, TestRest is a document library",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "{{SiteURL}}_api/v2.1/sites/a615d670-5001-4280-b60c-fb7d2c7eaf94/lists/TestRest/drive",
-							"host": [
-								"{{SiteURL}}_api"
-							],
-							"path": [
-								"v2.1",
-								"sites",
-								"a615d670-5001-4280-b60c-fb7d2c7eaf94",
-								"lists",
-								"TestRest",
-								"drive"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "GetSpecifcFileBasedonParent",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Cookie",
-								"value": "{{AuthCookie}}"
-							},
-							{
-								"key": "User-Agent",
-								"value": "{{userAgent}}"
-							},
-							{
-								"key": "Accept",
-								"value": "{{jsonType}}"
-							},
-							{
-								"key": "comment",
-								"value": "update site id and drive id; TestRest is a document library",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "{{SiteURL}}_api/v2.1/sites/a615d670-5001-4280-b60c-fb7d2c7eaf94/drives/b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK/root:/testfolder/testrest.xlsx",
-							"host": [
-								"{{SiteURL}}_api"
-							],
-							"path": [
-								"v2.1",
-								"sites",
-								"a615d670-5001-4280-b60c-fb7d2c7eaf94",
-								"drives",
-								"b!cNYVpgFQgEK2DPt9LH6vlO9rb-XWeM5Aq3R28gtEf9ffHrW9h01gRrH_7YcXriaK",
-								"root:",
-								"testfolder",
-								"testrest.xlsx"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
 				}
 			]
 		}
