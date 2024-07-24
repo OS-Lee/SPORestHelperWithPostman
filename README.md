@@ -28,3 +28,6 @@ $fileLength
 
 Batch upload(large file) request [batch api](batchupload.md) demo. 
 ![image](https://github.com/OS-Lee/SPORestHelperWithPostman/assets/40845109/66b7d94c-b11c-4b89-9c10-96b19f9bb2df)
+
+Added caml query rest api demo.
+![image](https://github.com/user-attachments/assets/13316db8-ea7c-4453-b4ef-3af27049fc1f)
